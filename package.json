@@ -1,0 +1,19 @@
+{
+  "name": "javascript_tasks_example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RutarAndriy/JavaScript_Tasks_Example.git"
+  },
+  "author": "RutarAndriy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RutarAndriy/JavaScript_Tasks_Example/issues"
+  },
+  "homepage": "https://github.com/RutarAndriy/JavaScript_Tasks_Example#readme"
+}
