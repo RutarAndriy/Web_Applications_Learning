@@ -1,0 +1,11 @@
+{
+  "name": "custom_module",
+  "version": "1.0.0",
+  "description": "Custom module",
+  "main": "module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rutar",
+  "license": "ISC"
+}

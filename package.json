@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/RutarAndriy/JavaScript_Tasks_Example/issues"
   },
-  "homepage": "https://github.com/RutarAndriy/JavaScript_Tasks_Example#readme"
+  "homepage": "https://github.com/RutarAndriy/JavaScript_Tasks_Example#readme",
+  "devDependencies": {
+    "custom_module": "file:custom_module"
+  }
 }
