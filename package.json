@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "frontend": "node web_application/frontend/index.js",
+    "backend":  "node web_application/backend/index.js"
   },
   "repository": {
     "type": "git",
