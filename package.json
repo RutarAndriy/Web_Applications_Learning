@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "frontend": "node web_application/frontend/index.js",
-    "backend":  "node web_application/backend/index.js"
+    "frontend": "nodemon web_application/frontend/main.js -e js,ejs",
+    "backend": "nodemon web_application/backend/main.js  -e js,ejs"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/RutarAndriy/JavaScript_Tasks_Example#readme",
   "devDependencies": {
-    "custom_module": "file:custom_module"
+    "bootstrap": "^5.0.0-beta3",
+    "custom_module": "file:custom_module",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
   }
 }
