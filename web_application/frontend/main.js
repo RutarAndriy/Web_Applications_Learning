@@ -42,22 +42,33 @@ exp.set('views', dir_views);
 
 // ... для головної сторінки
 exp.get(['/', '/index'], function (request, response) {
-  response.render('pages/index', { title: 'Головна сторінка' })
+  response.render('pages/index', { title: 'Головна сторінка' });
 });
 
 // ... для сторінки "Лікарні"
 exp.get('/hospitals', function (request, response) {
-  response.render('pages/hospitals', { title: 'Лікарні' })
+  response.render('pages/hospitals', { title: 'Лікарні' });
 });
 
 // ... для сторінки "Лікарі"
 exp.get('/doctors', function (request, response) {
-  response.render('pages/doctors', { title: 'Лікарі' })
+  response.render('pages/doctors', { title: 'Лікарі' });
 });
 
 // ... для сторінки "Пацієнти"
 exp.get('/patients', function (request, response) {
-  response.render('pages/patients', { title: 'Пацієнти' })
+  response.render('pages/patients', { title: 'Пацієнти' });
+});
+
+// ... для сторінки "Виписані пацієнти"
+exp.get('/discharged', function (request, response) {
+  response.render('pages/discharged', { title: 'Виписані пацієнти' });
+});
+
+// ... для сторінки 404 - "Сторінку не знайдено"
+exp.use(function (request, response) {
+  response.status(404);
+  response.render('pages/404', { title: '404'});
 });
 
 // ...............................................................................................
