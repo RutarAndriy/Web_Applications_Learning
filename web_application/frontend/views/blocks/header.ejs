@@ -29,22 +29,22 @@
 
             <!-- Лікарні -->
             <li class="nav-item">
-               <a class="nav-link" href="/hospitals">Лікарні</a>
+               <a class="<%= page_id === '1' ? "nav-link active" : "nav-link" %>" href="/hospitals">Лікарні</a>
             </li>
 
             <!-- Лікарі -->
             <li class="nav-item">
-               <a class="nav-link" href="/doctors">Лікарі</a>
+               <a class="<%= page_id === '2' ? "nav-link active" : "nav-link" %>" href="/doctors">Лікарі</a>
             </li>
 
             <!-- Пацієнти -->
             <li class="nav-item">
-               <a class="nav-link" href="/patients">Пацієнти</a>
+               <a class="<%= page_id === '3' ? "nav-link active" : "nav-link" %>" href="/patients">Пацієнти</a>
             </li>
 
             <!-- Виписані пацієнти -->
             <li class="nav-item">
-               <a class="nav-link" href="/discharged">Виписані пацієнти</a>
+               <a class="<%= page_id === '4' ? "nav-link active" : "nav-link" %>" href="/discharged">Виписані пацієнти</a>
             </li>
          </ul>
       </div>
