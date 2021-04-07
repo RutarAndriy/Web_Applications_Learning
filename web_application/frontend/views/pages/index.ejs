@@ -3,11 +3,74 @@
 
 <%- include('../blocks/head.ejs'); %>
 
-<body class="bg-secondary">
+<body class="bg-dark text-light text-center">
 
    <%- include('../blocks/header.ejs'); %>
 
-   <h1 class="text-center">Головна сторінка</h1>
+   <!-- Логотип університету -->
+   <div class="container d-flex justify-content-center my-5">
+      <img src="/web_application/frontend/img/logo.png" class="img-fluid">
+   </div>
+
+   <!-- Текст сторінки -->
+   <h1>Програмування web-додатків</h1>
+   <h4>Зразок виконання лабораторних робіт</h4>
+   <h4>Автор: Рутар Андрій</h4>
+   <h4 class="text-primary mb-3"
+       data-bs-toggle="collapse"
+       href="#task"
+       role="button"
+       aria-expanded="false"
+       aria-controls="task"">Варіант №0</h4>
+
+   <!-- Блок із завданням -->
+   <div class="collapse" id="task">
+      <div class="container-fluid bg-dark border-top border-secondary">
+         <div class="row my-3">
+
+            <!-- Лівий блок -->
+            <div class="col-12 col-md-6">
+               <div class="container-flex">
+                  <p class="text-primary fs-4 mx-5">Реалізувати з допомогою прототипів або класів такі інформаційні об’єкти:</p>
+                  <div class="d-inline-block">
+                     <ul class="text-start fs-5">
+                        <li>Лікарня</li>
+                        <li>Лікар</li>
+                        <li>Пацієнт</li>
+                        <li>Виписані пацієнти</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Правий блок -->
+            <div class="col-12 col-md-6">
+               <div class="container-flex">
+                  <p class="text-primary fs-4 mx-5">Реалізувати такі можливості системи:</p>
+                  <div class="d-inline-block">
+                     <ul class="text-start fs-5">
+                        <li>Додавання нової лікарні в колекцію</li>
+                        <li>Редагування лікарні в колекції</li>
+                        <li>Видалення лікарні з колекції</li>
+                        <li>Пошук однієї лікарні в колекції</li>
+                        <br>
+                        <li>Додавання лікаря в лікарню</li>
+                        <li>Редагування лікаря в лікарні</li>
+                        <li>Видалення лікаря з лікарні</li>
+                        <li>Пошук лікаря в лікарні</li>
+                        <li>Пошук усіх лікарів у лікарні</li>
+                        <br>
+                        <li>Додавання пацієнта в лікарню</li>
+                        <li>Редагування пацієнта в лікарні</li>
+                        <li>Виписування пацієнта з лікарні</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>
 
    <%- include('../blocks/scripts.ejs'); %>
 
