@@ -73,8 +73,9 @@ exp.get("/discharged", function (request, response) {
 // ... для сторінки 404 - "Сторінку не знайдено"
 exp.use(function (request, response) {
   response.status(404);
-  response.render("pages/404", { title: "404",
-                                 page_id: "-1"});
+  response.render("pages/404", { title: "Error 404",
+                                 page_id: "-1",
+                                 path: request.path });
 });
 
 // ...............................................................................................
