@@ -3,12 +3,13 @@
 
 <%- include('../blocks/head.ejs'); %>
 
-<body class="bg-secondary">
+<body class="bg-dark text-light text-center">
 
    <%- include('../blocks/header.ejs'); %>
 
-   <h1 class="text-center">Error 404</h1>
-   <h3 class="text-center">Сторінку не знайдено</h3>
+   <h1 class="text-center my-4">Error 404</h1>
+   <h3 class="text-center">Не вдалося знайти дану сторінку:</h3>
+   <h3><%=path%></h3>
 
    <%- include('../blocks/scripts.ejs'); %>
 
