@@ -49,24 +49,28 @@ exp.get(["/", "/index"], function (request, response) {
 // ... для сторінки "Лікарні"
 exp.get("/hospitals", function (request, response) {
   response.render("pages/hospitals", { title: "Лікарні",
+                                       add_button: "Додати нову лікарню",
                                        page_id: "1" });
 });
 
 // ... для сторінки "Лікарі"
 exp.get("/doctors", function (request, response) {
   response.render("pages/doctors", { title: "Лікарі",
+                                     add_button: "Додати нового лікаря",
                                      page_id: "2" });
 });
 
 // ... для сторінки "Пацієнти"
 exp.get("/patients", function (request, response) {
   response.render("pages/patients", { title: "Пацієнти",
+                                      add_button: "Додати нового пацієнта",
                                       page_id: "3" });
 });
 
 // ... для сторінки "Виписані пацієнти"
 exp.get("/discharged", function (request, response) {
   response.render("pages/discharged", { title: "Виписані пацієнти",
+                                        add_button: "Очистити дані",
                                         page_id: "4" });
 });
 
