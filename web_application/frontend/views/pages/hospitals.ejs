@@ -3,13 +3,57 @@
 
 <%- include('../blocks/head.ejs'); %>
 
-<body class="bg-dark text-light text-center">
+<body class="bg-dark text-light">
 
-   <%- include('../blocks/header.ejs'); %>
+  <!-- Підключення шапки сайту -->
+  <%- include('../blocks/header.ejs'); %>
 
-   <h1 class="mt-4">Лікарні</h1>
+  <!-- Підключення блоку керування -->
+  <%- include('../blocks/control.ejs'); %>
 
-   <%- include('../blocks/scripts.ejs'); %>
+  <!-- Додавання таблиці -->
+  <div class="mx-3 table-responsive">
+    <table class="table table-dark table-striped table-hover table-bordered border-secondary align-middle">
+      <thead>
+        <tr class="text-center text-primary align-middle">
+          <th class="fit" scope="col">#</th>
+          <th class="" scope="col">Назва лікарні</th>
+          <th class="" scope="col">Адреса лікарні</th>
+          <th class="fit" scope="col">. . .</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <span class="m-3">1</span> </td>
+          <td>9 Обласна Клінічна Лікарня</td>
+          <td>м. Львів, вул. С.Наливайка, 16</td>
+          <td> <%- include('../blocks/icons.ejs') %> </td>
+        </tr>
+        <tr>
+          <td> <span class="m-3">2</span> </td>
+          <td>Охмадит</td>
+          <td>м. Львів, вул. В.Лисенка, 134а</td>
+          <td> <%- include('../blocks/icons.ejs') %> </td>
+        </tr>
+        <tr>
+          <td>  <span class="m-3">...</span> </td>
+          <td>-</td>
+          <td>-</td>
+          <td> <%- include('../blocks/icons.ejs') %> </td>
+        </tr>
+        <tr>
+          <td> <span class="m-3">9</span> </td>
+          <td>Дублянська місцева поліклініка</td>
+          <td>м. Дубляни, вул. В.Великого, 4</td>
+          <td> <%- include('../blocks/icons.ejs') %> </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- Підключення скриптів -->
+  <%- include('../blocks/scripts.ejs'); %>
 
 </body>
 
