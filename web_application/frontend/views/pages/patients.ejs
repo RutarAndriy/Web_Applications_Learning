@@ -5,14 +5,56 @@
 
 <body class="bg-dark text-light">
 
-   <!-- Підключення шапки сайту -->
-   <%- include('../blocks/header.ejs'); %>
+  <!-- Підключення шапки сайту -->
+  <%- include('../blocks/header.ejs'); %>
 
-   <!-- Підключення блоку керування -->
-   <%- include('../blocks/control.ejs'); %>
+  <!-- Підключення блоку керування -->
+  <%- include('../blocks/control.ejs'); %>
 
-   <!-- Підключення скриптів -->
-   <%- include('../blocks/scripts.ejs'); %>
+  <!-- Додавання таблиці -->
+  <%- include('../blocks/table_start.ejs'); %>
+  <%- include('../blocks/table_head_patients.ejs'); %>
+
+  <tr>
+    <td> <span class="m-2">1</span> </td>
+    <td>Макота В. Б.</td>
+    <td> <span class="m-3">35</span> </td>
+    <td>Микула А. Б.</td>
+    <td>9 Обласна Клінічна Лікарня</td>
+    <td> <%- include('../blocks/icons.ejs') %> </td>
+  </tr>
+
+  <tr>
+    <td> <span class="m-2">2</span> </td>
+    <td>Агельяров В. М.</td>
+    <td> <span class="m-3">39</span> </td>
+    <td>Микула А. Б.</td>
+    <td>9 Обласна Клінічна Лікарня</td>
+    <td> <%- include('../blocks/icons.ejs') %> </td>
+  </tr>
+
+  <tr>
+    <td> <span class="m-2">...</span> </td>
+    <td>-</td>
+    <td> <span class="m-3">-</span> </td>
+    <td>-</td>
+    <td>-</td>
+    <td> <%- include('../blocks/icons.ejs') %> </td>
+  </tr>
+
+  <tr>
+    <td> <span class="m-2">25</span> </td>
+    <td>Дволятик Б. М.</td>
+    <td> <span class="m-3">72</span> </td>
+    <td>Пастернак Г. О.</td>
+    <td>Дублянська місцева поліклініка</td>
+    <td> <%- include('../blocks/icons.ejs') %> </td>
+  </tr>
+
+  <%- include('../blocks/table_end.ejs'); %>
+
+  <!-- Підключення скриптів -->
+  <%- include('../blocks/scripts.ejs'); %>
 
 </body>
 
