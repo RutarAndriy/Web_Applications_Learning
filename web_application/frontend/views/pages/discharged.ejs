@@ -14,29 +14,10 @@
   <!-- Додавання таблиці -->
   <%- include('../blocks/table_start.ejs'); %>
   <%- include('../blocks/table_head_patients.ejs'); %>
-
-  <tr>
-    <td> <span class="m-2">1</span> </td>
-    <td>Яськів І. М.</td>
-    <td> <span class="m-3">34</span> </td>
-    <td>Микула А. Б.</td>
-    <td>9 Обласна Клінічна Лікарня</td>
-    <td> <%- include('../blocks/icons.ejs') %> </td>
-  </tr>
-
-  <tr>
-    <td> <span class="m-2">2</span> </td>
-    <td>Витрикуш А. Б.</td>
-    <td> <span class="m-3">25</span> </td>
-    <td>Пастернак Г. О.</td>
-    <td>Дублянська місцева поліклініка</td>
-    <td> <%- include('../blocks/icons.ejs') %> </td>
-  </tr>
-
   <%- include('../blocks/table_end.ejs'); %>
 
-  <!-- Підключення скриптів -->
-  <%- include('../blocks/scripts.ejs'); %>
+  <!-- Підключення модальних вікон -->
+  <%- include('../blocks/modal_confirm.ejs'); %>
 
   <!-- Підключення скриптів -->
   <%- include('../blocks/scripts.ejs'); %>

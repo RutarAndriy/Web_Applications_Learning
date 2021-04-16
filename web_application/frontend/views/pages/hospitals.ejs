@@ -14,36 +14,11 @@
   <!-- Додавання таблиці -->
   <%- include('../blocks/table_start.ejs'); %>
   <%- include('../blocks/table_head_hospitals.ejs'); %>
-
-  <tr>
-    <td> <span class="m-2">1</span> </td>
-    <td>9 Обласна Клінічна Лікарня</td>
-    <td>м. Львів, вул. С.Наливайка, 16</td>
-    <td> <%- include('../blocks/icons.ejs') %> </td>
-  </tr>
-
-  <tr>
-    <td> <span class="m-2">2</span> </td>
-    <td>Охмадит</td>
-    <td>м. Львів, вул. В.Лисенка, 134а</td>
-    <td> <%- include('../blocks/icons.ejs') %> </td>
-  </tr>
-
-  <tr>
-    <td> <span class="m-2">...</span> </td>
-    <td>-</td>
-    <td>-</td>
-    <td> <%- include('../blocks/icons.ejs') %> </td>
-  </tr>
-
-  <tr>
-    <td> <span class="m-2">5</span> </td>
-    <td>Дублянська місцева поліклініка</td>
-    <td>м. Дубляни, вул. В.Великого, 4</td>
-    <td> <%- include('../blocks/icons.ejs') %> </td>
-  </tr>
-
   <%- include('../blocks/table_end.ejs'); %>
+
+  <!-- Підключення модальних вікон -->
+  <%- include('../blocks/modal_confirm.ejs'); %>
+  <%- include('../blocks/modal_add_hospitals.ejs'); %>
 
   <!-- Підключення скриптів -->
   <%- include('../blocks/scripts.ejs'); %>
