@@ -1,0 +1,41 @@
+<!-- Модальне вікно -->
+<div class="modal fade" id="modal_add_hospitals" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark">
+
+      <!-- Заголовок модального вікна -->
+      <div class="modal-header border-secondary">
+        <div class="d-flex flex-column">
+          <span class="fs-3 lh-1" id="modal_add_hospitals_title">#Title</span>
+        </div>
+        <button type="button" class="btn-close bg-primary" data-bs-dismiss="modal"
+          onclick="modal_cancel(this)"></button>
+      </div>
+
+      <!-- Тіло модального вікна -->
+      <div class="modal-body">
+        <form>
+
+          <!-- Назва лікарні -->
+          <span class="fs-5">Назва лікарні</span>
+          <input class="form-control fs-5 bg-dark text-light border-primary mb-2" id="modal_add_hospitals_name"
+            type="text" placeholder="Назва">
+
+          <!-- Адреса лікарні -->
+          <span class="fs-5">Адреса лікарні</span>
+          <input class="form-control fs-5 bg-dark text-light border-primary" id="modal_add_hospitals_address"
+            type="text" placeholder="Адреса">
+        </form>
+      </div>
+
+      <!-- Кнопки модального вікна -->
+      <div class="modal-footer border-secondary">
+        <button class="btn btn-outline-primary" data-bs-dismiss="modal"
+          onclick="modal_add_hospitals(this)">#Yes</button>
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal"
+          onclick="modal_cancel(this)">Відміна</button>
+      </div>
+    </div>
+  </div>
+</div>
