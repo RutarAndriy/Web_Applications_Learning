@@ -16,6 +16,9 @@ const exp = express();
 // Порт доступу до локального сервера
 const PORT = process.env.PORT || 8080;
 
+//
+const USE_DB = process.env.USE_DB;
+
 // Шлях до директорії проекту
 const dir_proj = path.join(__dirname, "/../../");
 
@@ -41,45 +44,51 @@ exp.set("views", dir_views);
 // Налаштовуємо маршрутизацію
 
 // ... для головної сторінки
-exp.get(["/", "/index"], function (request, response) {
-  response.render("pages/index", { title: "Головна сторінка",
-                                   page_id: "0" });
+exp.get(["/", "/index"], (req, res) => {
+  res.render("pages/index", { title: "Головна сторінка",
+                              use_db: USE_DB,
+                              page_id: "0" });
 });
 
 // ... для сторінки "Лікарні"
-exp.get("/hospitals", function (request, response) {
-  response.render("pages/hospitals", { title: "Лікарні",
-                                       add_button: "Додати нову лікарню",
-                                       page_id: "1" });
+exp.get("/hospitals", (req, res) => {
+  res.render("pages/hospitals", { title: "Лікарні",
+                                  use_db: USE_DB,
+                                  add_button: "Додати нову лікарню",
+                                  page_id: "1" });
 });
 
 // ... для сторінки "Лікарі"
-exp.get("/doctors", function (request, response) {
-  response.render("pages/doctors", { title: "Лікарі",
-                                     add_button: "Додати нового лікаря",
-                                     page_id: "2" });
+exp.get("/doctors", (req, res) => {
+  res.render("pages/doctors", { title: "Лікарі",
+                                use_db: USE_DB,
+                                add_button: "Додати нового лікаря",
+                                page_id: "2" });
 });
 
 // ... для сторінки "Пацієнти"
-exp.get("/patients", function (request, response) {
-  response.render("pages/patients", { title: "Пацієнти",
-                                      add_button: "Додати нового пацієнта",
-                                      page_id: "3" });
+exp.get("/patients", (req, res) => {
+  res.render("pages/patients", { title: "Пацієнти",
+                                 use_db: USE_DB,
+                                 add_button: "Додати нового пацієнта",
+                                 page_id: "3" });
 });
 
 // ... для сторінки "Виписані пацієнти"
-exp.get("/discharged", function (request, response) {
-  response.render("pages/discharged", { title: "Виписані пацієнти",
-                                        add_button: "Очистити дані",
-                                        page_id: "4" });
+exp.get("/discharged", (req, res) => {
+  res.render("pages/discharged", { title: "Виписані пацієнти",
+                                   use_db: USE_DB,
+                                   add_button: "Очистити дані",
+                                   page_id: "4" });
 });
 
-// ... для сторінки 404 - "Сторінку не знайдено"
-exp.use(function (request, response) {
-  response.status(404);
-  response.render("pages/404", { title: "Error 404",
-                                 page_id: "-1",
-                                 path: request.path });
+// ... для помилкової сторінки - "Сторінку не знайдено"
+exp.use((req, res) => {
+  res.status(404);
+  res.render("pages/404", { title: "Error 404",
+                            use_db: USE_DB,
+                            page_id: "-1",
+                            path: req.path });
 });
 
 // ...............................................................................................
@@ -88,5 +97,5 @@ exp.use(function (request, response) {
 exp.listen(PORT);
 
 // Виводимо інформаційне повідомлення
-console.log(`Server is started on ${PORT} port`);
+console.log(`Frontend server is started on ${PORT} port`);
 console.log(`Url: http://localhost:${PORT}`);
