@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "frontend": "nodemon web_application/frontend/main.js -e js,ejs",
-    "backend": "nodemon web_application/backend/main.js  -e js,ejs"
+    "frontend":    "USE_DB=false nodemon web_application/frontend/main.js -e js,ejs",
+    "frontend_db": "USE_DB=true  nodemon web_application/frontend/main.js -e js,ejs",
+    "backend":     "nodemon web_application/backend/main.js -e js"
   },
   "repository": {
     "type": "git",
