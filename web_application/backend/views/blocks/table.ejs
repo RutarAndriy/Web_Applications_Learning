@@ -5,6 +5,7 @@
          <tr class="text-center text-primary align-middle">
             <th class="fit" scope="col">#</th>
             <th class="fit" scope="col">Запит</th>
+            <th class="fit" scope="col"> <span class="m-2">Тип запиту</span> </th>
             <th class="" scope="col">Опис</th>
          </tr>
       </thead>
@@ -15,6 +16,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">1</span> </td>
             <td> <span class="m-4">/get_hospitals</span> </td>
+            <td class="text-center"> <span>GET</span> </td>
             <td class="ps-4">Повертає список усіх лікарень із бази даних</td>
          </tr>
 
@@ -22,6 +24,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">2</span> </td>
             <td> <span class="m-4">/get_doctors</span> </td>
+            <td class="text-center"> <span>GET</span> </td>
             <td class="ps-4">Повертає список усіх лікарів із бази даних</td>
          </tr>
 
@@ -29,6 +32,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">3</span> </td>
             <td> <span class="m-4">/get_patients</span> </td>
+            <td class="text-center"> <span>GET</span> </td>
             <td class="ps-4">Повертає список усіх пацієнтів із бази даних</td>
          </tr>
 
@@ -36,6 +40,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">4</span> </td>
             <td> <span class="m-4">/get_discharged</span> </td>
+            <td class="text-center"> <span>GET</span> </td>
             <td class="ps-4">Повертає список усіх виписаних пацієнтів із бази даних</td>
          </tr>
 
@@ -43,6 +48,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">5</span> </td>
             <td> <span class="m-4">/set_hospitals</span> </td>
+            <td class="text-center"> <span>PUT</span> </td>
             <td class="ps-4">Оновлює список усіх лікарень в базі даних</td>
          </tr>
 
@@ -50,6 +56,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">6</span> </td>
             <td> <span class="m-4">/set_doctors</span> </td>
+            <td class="text-center"> <span>PUT</span> </td>
             <td class="ps-4">Оновлює список усіх лікарів в базі даних</td>
          </tr>
 
@@ -57,6 +64,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">7</span> </td>
             <td> <span class="m-4">/set_patients</span> </td>
+            <td class="text-center"> <span>PUT</span> </td>
             <td class="ps-4">Оновлює список усіх пацієнтів в базі даних</td>
          </tr>
 
@@ -64,6 +72,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">8</span> </td>
             <td> <span class="m-4">/set_discharged</span> </td>
+            <td class="text-center"> <span>PUT</span> </td>
             <td class="ps-4">Оновлює список усіх виписаних пацієнтів в базі даних</td>
          </tr>
 
@@ -71,6 +80,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">9</span> </td>
             <td> <span class="m-4">/get_last_hostipal_id</span> </td>
+            <td class="text-center"> <span>GET</span> </td>
             <td class="ps-4">Повертає останнє значення id для лікарень</td>
          </tr>
 
@@ -78,6 +88,7 @@
          <tr>
             <td class="text-center"> <span class="m-2">10</span> </td>
             <td> <span class="m-4">/get_last_doctor_id</span> </td>
+            <td class="text-center"> <span>GET</span> </td>
             <td class="ps-4">Повертає останнє значення id для лікарів</td>
          </tr>
 
@@ -85,7 +96,16 @@
          <tr>
             <td class="text-center"> <span class="m-2">11</span> </td>
             <td> <span class="m-4">/get_last_patient_id</span> </td>
+            <td class="text-center"> <span>GET</span> </td>
             <td class="ps-4">Повертає останнє значення id для пацієнтів</td>
+         </tr>
+
+         <!-- /set_identificators -->
+         <tr>
+            <td class="text-center"> <span class="m-2">12</span> </td>
+            <td> <span class="m-4">/set_identificators</span> </td>
+            <td class="text-center"> <span>PUT</span> </td>
+            <td class="ps-4">Оновлює список усіх останніх id в базі даних</td>
          </tr>
 
       </tbody>
