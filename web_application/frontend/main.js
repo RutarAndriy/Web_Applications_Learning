@@ -14,10 +14,11 @@ const path = require("path");
 const exp = express();
 
 // Порт доступу до локального сервера
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.npm_package_config_port_frontend || 8080;
 
-//
+// Допоміжні константи
 const USE_DB = process.env.USE_DB;
+const SERVER_PORT = process.env.npm_package_config_port_backend || 3000;
 
 // Шлях до директорії проекту
 const dir_proj = path.join(__dirname, "/../../");
@@ -47,6 +48,7 @@ exp.set("views", dir_views);
 exp.get(["/", "/index"], (req, res) => {
   res.render("pages/index", { title: "Головна сторінка",
                               use_db: USE_DB,
+                              server_port: SERVER_PORT,
                               page_id: "0" });
 });
 
@@ -54,6 +56,7 @@ exp.get(["/", "/index"], (req, res) => {
 exp.get("/hospitals", (req, res) => {
   res.render("pages/hospitals", { title: "Лікарні",
                                   use_db: USE_DB,
+                                  server_port: SERVER_PORT,
                                   add_button: "Додати нову лікарню",
                                   page_id: "1" });
 });
@@ -62,6 +65,7 @@ exp.get("/hospitals", (req, res) => {
 exp.get("/doctors", (req, res) => {
   res.render("pages/doctors", { title: "Лікарі",
                                 use_db: USE_DB,
+                                server_port: SERVER_PORT,
                                 add_button: "Додати нового лікаря",
                                 page_id: "2" });
 });
@@ -70,6 +74,7 @@ exp.get("/doctors", (req, res) => {
 exp.get("/patients", (req, res) => {
   res.render("pages/patients", { title: "Пацієнти",
                                  use_db: USE_DB,
+                                 server_port: SERVER_PORT,
                                  add_button: "Додати нового пацієнта",
                                  page_id: "3" });
 });
@@ -78,6 +83,7 @@ exp.get("/patients", (req, res) => {
 exp.get("/discharged", (req, res) => {
   res.render("pages/discharged", { title: "Виписані пацієнти",
                                    use_db: USE_DB,
+                                   server_port: SERVER_PORT,
                                    add_button: "Очистити дані",
                                    page_id: "4" });
 });
@@ -87,6 +93,7 @@ exp.use((req, res) => {
   res.status(404);
   res.render("pages/404", { title: "Error 404",
                             use_db: USE_DB,
+                            server_port: SERVER_PORT,
                             page_id: "-1",
                             path: req.path });
 });
