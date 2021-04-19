@@ -3,16 +3,6 @@ let last_hospital_id = 0;
 let last_doctor_id = 0;
 let last_patient_id = 0;
 
-// Зберігання даних у localStorage
-function save_data (collection) {
-   console.log("save_data");
-}
-
-// Завантаження даних з localStorage
-function load_data (collection) {
-   console.log("load_data");
-}
-
 // Створення нового елемента
 function create_element() {
 
@@ -83,12 +73,13 @@ function modal_confirm() {
 }
 
 // Задання елементів модального вікна підтвердження
-function modal_confirm_create (title, message, yes, no) {
+function modal_confirm_create (title, message, yes, no, target) {
 
    $(`#modal_confirm_title`).text(title);
    $(`#modal_confirm_message`).text(message);
    $(`#modal_confirm_yes`).text(yes);
    $(`#modal_confirm_no`).text(no);
+   $("#modal_confirm").attr("target", target);
 
 }
 
