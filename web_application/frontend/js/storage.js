@@ -71,7 +71,7 @@ async function server_PUT (req, array) {
       case "/set_hospitals":      collection = 1; break;
       case "/set_doctors":        collection = 2; break;
       case "/set_patients":       collection = 3; break;
-      case "/set_discharged":     collection = 4; break;
+      case "/set_cured_patients": collection = 4; break;
       case "/set_identificators": collection = 5; break;
    }
    
@@ -149,7 +149,7 @@ async function set_data_to_db() {
    let res_3 = server_PUT("/set_patients", pats);
    console.log(res_3);
 
-   let res_4 = server_PUT("/set_discharged", pats);
+   let res_4 = server_PUT("/set_cured_patients", pats);
    console.log(res_4);
 
    let res_5 = server_PUT("/set_identificators", idis);

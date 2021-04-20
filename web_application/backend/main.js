@@ -69,7 +69,7 @@ mongo.connect((error, client) => {
   exp.locals.hospitals      = client.db(db_name).collection("hospitals");
   exp.locals.doctors        = client.db(db_name).collection("doctors");
   exp.locals.patients       = client.db(db_name).collection("patients");
-  exp.locals.discharged     = client.db(db_name).collection("discharged");
+  exp.locals.cured_patients = client.db(db_name).collection("cured_patients");
   exp.locals.identificators = client.db(db_name).collection("identificators");
 
   // Запускаємо локальний сервер
@@ -130,10 +130,10 @@ exp.get("/get_patients", (req, res) => {
   });
 });
 
-// ... для запиту /get_discharged
-exp.get("/get_discharged", (req, res) => {
+// ... для запиту /get_cured_patients
+exp.get("/get_cured_patients", (req, res) => {
 
-  collection = req.app.locals.discharged;
+  collection = req.app.locals.cured_patients;
   collection.find({}).toArray((error, result) => {
 
     if (error) { console.log(error);
@@ -186,7 +186,7 @@ exp.get("/get_last_patient_id", (req, res) => {
 exp.put(["/set_hospitals",
          "/set_doctors",
          "/set_patients",
-         "/set_discharged",
+         "/set_cured_patients",
          "/set_identificators"], parser, (req, res) => {
 
   if (!req.body) { return res.sendStatus(400); }
@@ -198,7 +198,7 @@ exp.put(["/set_hospitals",
     case 1: collection = req.app.locals.hospitals;      break;
     case 2: collection = req.app.locals.doctors;        break;
     case 3: collection = req.app.locals.patients;       break;
-    case 4: collection = req.app.locals.discharged;     break;
+    case 4: collection = req.app.locals.cured_patients; break;
     case 5: collection = req.app.locals.identificators; break;
   }
 
