@@ -80,12 +80,12 @@ exp.get("/patients", (req, res) => {
 });
 
 // ... для сторінки "Виписані пацієнти"
-exp.get("/discharged", (req, res) => {
-  res.render("pages/discharged", { title: "Виписані пацієнти",
-                                   use_db: USE_DB,
-                                   server_port: SERVER_PORT,
-                                   add_button: "Очистити дані",
-                                   page_id: "4" });
+exp.get("/cured_patients", (req, res) => {
+  res.render("pages/cured_patients", { title: "Виписані пацієнти",
+                                       use_db: USE_DB,
+                                       server_port: SERVER_PORT,
+                                       add_button: "Очистити дані",
+                                       page_id: "4" });
 });
 
 // ... для помилкової сторінки - "Сторінку не знайдено"

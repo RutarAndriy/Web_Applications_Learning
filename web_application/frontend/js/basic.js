@@ -8,8 +8,8 @@ function create_element() {
 
    let target = location.pathname.substring(1);
 
-   if (target === "discharged") {
-      modal_delete_discharged();
+   if (target === "cured_patients") {
+      modal_delete_cured_patients();
       return;
    }
 
@@ -155,7 +155,7 @@ function modal_add_patients() {
 }
 
 // Підтвердження видалення виписаних пацієнтів
-function modal_delete_discharged() {
+function modal_delete_cured_patients() {
 
    modal_confirm_create("Видалення даних",
                         "Ви дійсно хочете видалити усі наявні дані про виписаних пацієнтів?",
