@@ -1,8 +1,3 @@
-// Необхідні змінні
-let last_hospital_id = 0;
-let last_doctor_id = 0;
-let last_patient_id = 0;
-
 // Створення нового елемента
 function create_element() {
 
