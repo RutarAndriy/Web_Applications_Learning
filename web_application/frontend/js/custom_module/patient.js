@@ -15,11 +15,16 @@ class Patient {
         this.doctor = doctor;
         this.hospital = hospital;
         
-        if (typeof id       === 'undefined') { this.id       = ++last_patient_id;   }
-        if (typeof age      === 'undefined') { this.age      = "Не встановлено";    }
-        if (typeof name     === 'undefined') { this.name     = "Невідомий пацієнт"; }
-        if (typeof doctor   === 'undefined') { this.doctor   = "Не призначено";     }
-        if (typeof hospital === 'undefined') { this.hospital = "Не встановлено";    }
+        if (id === "" ||
+            typeof id       === 'undefined') { this.id       = ++last_patient_id;   }
+        if (age === "" ||
+            typeof age      === 'undefined') { this.age      = "Не встановлено";    }
+        if (name === "" ||
+            typeof name     === 'undefined') { this.name     = "Невідомий пацієнт"; }
+        if (doctor === "" ||
+            typeof doctor   === 'undefined') { this.doctor   = "Не призначено";     }
+        if (hospital === "" ||
+            typeof hospital === 'undefined') { this.hospital = "Не встановлено";    }
     
     }
 }
@@ -27,9 +32,9 @@ class Patient {
 // ...............................................................................................
 
 // Додавання нового пацієнта
-function add_patient (name, age, doctor, hospital) {
+function add_patient (name, age, doctor, hospital, id) {
 
-    let patient = new Patient(name, age, doctor, hospital);
+    let patient = new Patient(name, age, doctor, hospital, id);
     patients_list.push(patient);
 
     return patient;
@@ -79,12 +84,35 @@ function remove_cured_patient (id) {
 
 // ...............................................................................................
 
-// Повертає список усіх пацієнтів
+// Повертаємо список усіх пацієнтів
 function get_patients_list (cured) {
 
     if (cured) { return cured_patients_list; }
     else       { return patients_list; }
 
+}
+
+// Задаємо список усіх пацієнтів
+function set_patients_list (data, cured) {
+
+    for (let element of data) {
+
+        if (cured) {
+            add_cured_patient(element.name,
+                              element.age,
+                              element.doctor,
+                              element.hospital,
+                              element.id);
+        }
+
+        else {
+            add_patient(element.name,
+                        element.age,
+                        element.doctor,
+                        element.hospital,
+                        element.id);
+        }
+    }
 }
 
 // Повертає пацієнта по його id

@@ -12,10 +12,14 @@ class Doctor {
         this.name = name;
         this.hospital = hospital;
         
-        if (typeof id       === 'undefined') { this.id       = ++last_doctor_id;  }
-        if (typeof age      === 'undefined') { this.age      = "Не встановлено";  }
-        if (typeof name     === 'undefined') { this.name     = "Невідомий лікар"; }
-        if (typeof hospital === 'undefined') { this.hospital = "Не встановлено";  }
+        if (id === "" ||
+            typeof id       === 'undefined') { this.id       = ++last_doctor_id;  }
+        if (age === "" ||
+            typeof age      === 'undefined') { this.age      = "Не встановлено";  }
+        if (name === "" ||
+            typeof name     === 'undefined') { this.name     = "Невідомий лікар"; }
+        if (hospital === "" ||
+            typeof hospital === 'undefined') { this.hospital = "Не встановлено";  }
     
     }
 }
@@ -23,9 +27,9 @@ class Doctor {
 // ...............................................................................................
 
 // Додавання нового лікаря
-function add_doctor (name, age, hospital) {
+function add_doctor (name, age, hospital, id) {
 
-    let doctor = new Doctor(name, age, hospital);
+    let doctor = new Doctor(name, age, hospital, id);
     doctors_list.push(doctor);
 
     return doctor;
@@ -49,9 +53,20 @@ function remove_doctor (id) {
 
 // ...............................................................................................
 
-// Повертає список усіх лікарів
+// Повертаємо список усіх лікарів
 function get_doctors_list()
     { return doctors_list; }
+
+// Задаємо список усіх лікарів
+function set_doctors_list (data) {
+
+    for (let element of data) {
+        add_doctor(element.name,
+                   element.age,
+                   element.hospital,
+                   element.id);
+    }
+}
 
 // Повертає лікаря по його id
 function get_doctor_by_id (id) {
