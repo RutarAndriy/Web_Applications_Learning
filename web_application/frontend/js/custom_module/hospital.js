@@ -11,9 +11,12 @@ class Hospital {
         this.name = name;
         this.address = address;
         
-        if (typeof id      === 'undefined') { this.id      = ++last_hospital_id; }
-        if (typeof name    === 'undefined') { this.name    = "Невідома лікарня"; }
-        if (typeof address === 'undefined') { this.address = "Не встановлено";   }
+        if (id === "" ||
+            typeof id      === 'undefined') { this.id      = ++last_hospital_id; }
+        if (name === "" ||
+            typeof name    === 'undefined') { this.name    = "Невідома лікарня"; }
+        if (address === "" ||
+            typeof address === 'undefined') { this.address = "Не встановлено";   }
    
     }
 }
@@ -21,9 +24,9 @@ class Hospital {
 // ...............................................................................................
 
 // Додавання нової лікарні
-function add_hospital (name, address) {
+function add_hospital (name, address, id) {
 
-    let hospital = new Hospital(name, address);
+    let hospital = new Hospital(name, address, id);
     hospitals_list.push(hospital);
 
     return hospital;
@@ -47,9 +50,19 @@ function remove_hospital (id) {
 
 // ...............................................................................................
 
-// Повертає список усіх лікарень
+// Повертаємо список усіх лікарень
 function get_hospitals_list()
     { return hospitals_list; }
+
+// Задаємо список усіх лікарень
+function set_hospitals_list (data) {
+
+    for (let element of data) {
+        add_hospital(element.name,
+                     element.address,
+                     element.id);
+    }
+}
 
 // Повертає лікарню по її id
 function get_hospital_by_id (id) {
