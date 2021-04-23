@@ -17,7 +17,7 @@ const exp = express();
 const PORT = process.env.npm_package_config_port_frontend || 8080;
 
 // Допоміжні константи
-const USE_DB = process.env.USE_DB;
+const USE_DB = process.argv[2] === "use_db=true" ? true : false;
 const SERVER_PORT = process.env.npm_package_config_port_backend || 3000;
 
 // Шлях до директорії проекту
