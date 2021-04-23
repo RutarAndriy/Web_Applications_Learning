@@ -81,71 +81,42 @@ function modal_confirm_create (title, message, yes, no, target) {
 // Додавання нової лікарні
 function modal_add_hospitals() {
 
-   let name = $("#hospital_name").val();
+   let name    = $("#hospital_name").val();
    let address = $("#hospital_address").val();
-   last_hospital_id++;
 
-   let block = 
-  `<tr>
-      <td> <span class="m-2">${last_hospital_id}</span> </td>
-      <td>${name}</td>
-      <td>${address}</td>
-      <td>${get_icon_code()}</td>
-   </tr>`;
-
-   table_is_empty();
-   $("#table").append(block);
+   add_hospital(name, address);
+   display_data();
    clear_input();
+   save_data();
 
 }
 
 // Додавання нового лікаря
 function modal_add_doctors() {
 
-   let name = $("#doctor_name").val();
-   let age = $("#doctor_age").val();
+   let name     = $("#doctor_name").val();
+   let age      = $("#doctor_age").val();
    let hospital = $("#doctor_hospital").text();
-   last_doctor_id++;
 
-   let block =
-  `<tr>
-      <td> <span class="m-2">${last_doctor_id}</span> </td>
-      <td>${name}</td>
-      <td> <span class="m-3">${age}</span> </td>
-      <td>${hospital}</td>
-      <td>${get_icon_code()}</td>
-   </tr>`;
-
-   table_is_empty();
-   $("#table").append(block);
+   add_doctor(name, age, hospital);
+   display_data();
    clear_input();
-
-   // <li><hr class="dropdown-divider"></li>
+   save_data();
 
 }
 
 // Додавання нового пацієнта
 function modal_add_patients() {
 
-   let name = $("#patient_name").val();
-   let age = $("#patient_age").val();
-   let doctor = $("#patient_doctor").text();
+   let name     = $("#patient_name").val();
+   let age      = $("#patient_age").val();
+   let doctor   = $("#patient_doctor").text();
    let hospital = $("#patient_hospital").text();
-   last_patient_id++;
 
-   let block =
-  `<tr>
-      <td> <span class="m-2">${last_patient_id}</span> </td>
-      <td>${name}</td>
-      <td> <span class="m-3">${age}</span> </td>
-      <td>${doctor}</td>
-      <td>${hospital}</td>
-      <td>${get_icon_code()}</td>
-   </tr>`;
-
-   table_is_empty();
-   $("#table").append(block);
+   add_patient(name, age, doctor, hospital);
+   display_data();
    clear_input();
+   save_data();
 
 }
 
@@ -168,27 +139,115 @@ function set_hospital() {
 
 }
 
-// Вибір оікаря у випадаючому списку
+// Вибір лікаря у випадаючому списку
 function set_doctor() {
 
    console.log("set_doctor");
 
 }
 
+// Відобразити дані у таблиці
+function display_data() {
+
+   let data;
+   let target = location.pathname.substring(1);
+
+   switch (target) {
+
+      case "hospitals":      data = get_hospitals_list();    break;
+      case "doctors":        data = get_doctors_list();      break;
+      case "patients":       data = get_patients_list();     break;
+      case "cured_patients": data = get_patients_list(true); break;
+
+   }
+
+   // Очищення таблиць
+   clear_table(data.length === 0);
+
+   // Для виписаних та невиписаниї пацієнтів таблиці однакові
+   if (target === "cured_patients") { target = "patients"; }
+
+   // Відобразити дані конкретної таблиці
+   eval(`display_${target}_data(data)`);
+
+}
+
+// Відобразити дані про усі лікарні
+function display_hospitals_data (data) {
+
+   for (let element of data) {
+   
+      let block = 
+     `<tr>
+         <td> <span class="m-2">${element.id}</span> </td>
+         <td>${element.name}</td>
+         <td>${element.address}</td>
+         <td>${get_icon_code()}</td>
+      </tr>`;
+
+      $("#table").append(block);
+
+   }
+}
+
+// Відобразити дані про усіх лікарів
+function display_doctors_data (data) {
+
+// <li><hr class="dropdown-divider"></li>
+
+   for (let element of data) {
+      
+      let block =
+     `<tr>
+         <td> <span class="m-2">${element.id}</span> </td>
+         <td>${element.name}</td>
+         <td class="fit"> <span class="m-2">${element.age}</span> </td>
+         <td>${element.hospital}</td>
+         <td>${get_icon_code()}</td>
+      </tr>`;
+
+      $("#table").append(block);
+
+   }
+}
+
+// Відобразити дані про усіх пацієнтів
+function display_patients_data (data) {
+
+   for (let element of data) {
+      
+      let block =
+     `<tr>
+         <td> <span class="m-2">${element.id}</span> </td>
+         <td>${element.name}</td>
+         <td class="fit"> <span class="m-2">${element.age}</span> </td>
+         <td>${element.doctor}</td>
+         <td>${element.hospital}</td>
+         <td>${get_icon_code()}</td>
+      </tr>`;
+
+      $("#table").append(block);
+
+   }
+}
+
+// Видалення усіх даних з таблиці 
 // Додавання інформаційного повідомлення, якщо таблиця пуста
-function table_is_empty (boolean) {
+function clear_table (table_is_empty) {
 
    let target = location.pathname.substring(1);
    let span = (target === "hospitals") ? 4 :
               (target === "doctors") ? 5 : 6;
+
+   $("#table tbody").empty();
 
    let block =
   `<tr class="text-center text-secondary" id="table_empty">
       <td colspan="${span}"> <span class="mx-5 fs-4">Немає даних для відображення</span> </td>
    </tr>`;
 
-   if (boolean) { $("#table tbody").append(block); }
-   else         { $("#table_empty").remove();      }
+   if (table_is_empty) { $("#table tbody").append(block); }
+   else                { $("#table_empty").remove();      }
 
 }
 
@@ -212,13 +271,6 @@ function clear_input() {
                         $("#patient_hospital").text("Виберіть лікарню");
                         break;
    }
-}
-
-// Видалення усіх даних з таблиці
-function clear_table() {
-
-   console.log("clear_table");
-
 }
 
 // Метод повертає html код елементів керування таблицею
@@ -250,3 +302,11 @@ function get_icon_code (only_delete) {
 
 // Очищення даних після закриття модальних вікон
 $(document).on("hidden.bs.modal", () => { clear_input(); });
+
+// Виконання коду після завантаження сторінки
+jQuery(async () => {
+
+   await load_data();
+   display_data();
+
+});
