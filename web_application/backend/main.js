@@ -187,12 +187,14 @@ exp.put(["/set_hospitals",
          "/set_doctors",
          "/set_patients",
          "/set_cured_patients",
-         "/set_identificators"], parser, (req, res) => {
+         "/set_identificators"], parser, async (req, res) => {
 
   if (!req.body) { return res.sendStatus(400); }
 
   let array      = req.body.array;
   let collection = req.body.collection;
+
+  if (array.length === 0) { return res.send(array); }
 
   switch (collection) {
     case 1: collection = req.app.locals.hospitals;      break;
@@ -202,20 +204,22 @@ exp.put(["/set_hospitals",
     case 5: collection = req.app.locals.identificators; break;
   }
 
-  collection.deleteMany({}, (error, result) => {
+  try {
 
-    if (error) { console.log(error);
-                 return res.sendStatus(500); }
+    await collection.deleteMany({});
+    let result = await collection.insertMany(array);
 
-  });
+    return res.send(result);
 
-  collection.insertMany(array, (error, result) => {
+  }
 
-    if (error) { console.log(error);
-                 return res.sendStatus(500); }
-    else       { return res.send(result); }
+  catch (error) {
 
-  });
+    console.log(error);
+    return res.sendStatus(500);
+
+  }
+
 });
 
 // ... для інших запитів
