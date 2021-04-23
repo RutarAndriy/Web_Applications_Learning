@@ -122,51 +122,172 @@ async function server_PUT (req, array) {
 
 // ...............................................................................................
 
-let hosp = [{"id":1,"name":"АТБ",      "address":"Личаківська, 15"},
-            {"id":2,"name":"Сільпо",   "address":"Замарстинівська, 33"},
-            {"id":3,"name":"Рукавичка","address":"Лісна, 68"}];
+// Зберігання даних
+function save_data() {
 
-let docs = [{"id":1,"name":"Завірюха П.В.","age":"45", "hospital":"H1"},
-            {"id":2,"name":"Олійник М.О.", "age":"76", "hospital":"H3"},
-            {"id":3,"name":"Качан Г.І.",   "age":"92", "hospital":"H2"}];
-
-let pats = [{"id":1,"name":"Андрій А.О.","age":"15", "hospital":"H1", "doctor":"D2"},
-            {"id":2,"name":"Богдан М.О.","age":"46", "hospital":"H2", "doctor":"D4"},
-            {"id":3,"name":"Карась В.В.","age":"33", "hospital":"H3", "doctor":"D9"}];
-
-let idis = [{"name":"last_hospital_id","value":"15"},
-            {"name":"last_doctor_id",  "value":"24"},
-            {"name":"last_patient_id", "value":"35"}];
-
-async function set_data_to_db() {
-
-   let res_1 = server_PUT("/set_hospitals", hosp);
-   console.log(res_1);
-
-   let res_2 = server_PUT("/set_doctors", docs);
-   console.log(res_2);
-
-   let res_3 = server_PUT("/set_patients", pats);
-   console.log(res_3);
-
-   let res_4 = server_PUT("/set_cured_patients", pats);
-   console.log(res_4);
-
-   let res_5 = server_PUT("/set_identificators", idis);
-   console.log(res_5);
+   if (use_db === "true") { save_data_in_data_base();     }
+   else                   { save_data_in_local_storage(); }
 
 }
 
 // Зберігання даних у localStorage
-function save_data (collection) {
+function save_data_in_local_storage() {
 
-   console.log("save_data");
+   let target = location.pathname.substring(1);
+
+   switch (target) {
+
+      case "hospitals":
+         localStorage.setItem('hospitals', JSON.stringify(get_hospitals_list()));
+         break;
+
+      case "doctors":
+         localStorage.setItem('doctors', JSON.stringify(get_doctors_list()));
+         break;
+
+      case "patients":
+         localStorage.setItem('patients', JSON.stringify(get_patients_list()));
+         localStorage.setItem('cured_patients', JSON.stringify(get_patients_list(true)));
+         break;
+
+      case "cured_patients":
+         localStorage.setItem('cured_patients', JSON.stringify(get_patients_list(true)));
+         break;
+
+   }
+
+   let identificators = [{ "name":"last_hospital_id","value":last_hospital_id },
+                         { "name":"last_doctor_id",  "value":last_doctor_id   },
+                         { "name":"last_patient_id", "value":last_patient_id  }];
+
+   localStorage.setItem('identificators', JSON.stringify(identificators));
+
+}
+
+// Зберігання даних у базу даних
+function save_data_in_data_base() {
+
+   let target = location.pathname.substring(1);
+
+   switch (target) {
+
+      case "hospitals":
+         server_PUT("/set_hospitals", get_hospitals_list());
+         break;
+
+      case "doctors":
+         server_PUT("/set_doctors", get_doctors_list());
+         break;
+
+      case "patients":
+         server_PUT("/set_patients", get_patients_list());
+         server_PUT("/set_cured_patients", get_patients_list(true));
+         break;
+
+      case "cured_patients":
+         server_PUT("/set_cured_patients", get_patients_list(true));
+         break;
+
+   }
+
+   let identificators = [{ "name":"last_hospital_id","value":last_hospital_id },
+                         { "name":"last_doctor_id",  "value":last_doctor_id   },
+                         { "name":"last_patient_id", "value":last_patient_id  }];
+
+   server_PUT("/set_identificators", identificators);
+
+}
+
+// ...............................................................................................
+
+// Завантаження даних
+async function load_data() {
+
+   if (use_db === "true") { await load_data_from_data_base();     }
+   else                   { await load_data_from_local_storage(); }
 
 }
 
 // Завантаження даних з localStorage
-function load_data (collection) {
+async function load_data_from_local_storage() {
 
-   console.log("load_data");
+   let item;
+   let target = location.pathname.substring(1);
+
+   switch (target) {
+
+      case "hospitals":
+         item = JSON.parse(localStorage.getItem("hospitals"));
+         set_hospitals_list(item ? item : []);
+         break;
+
+      case "doctors":
+         item = JSON.parse(localStorage.getItem("doctors"));
+         set_doctors_list(item ? item : []);
+         break;
+
+      case "patients":
+         item = JSON.parse(localStorage.getItem("patients"));
+         set_patients_list(item ? item : []);
+         item = JSON.parse(localStorage.getItem("cured_patients"));
+         set_patients_list(item ? item : [], true);
+         break;
+
+      case "cured_patients":
+         item = JSON.parse(localStorage.getItem("cured_patients"));
+         set_patients_list(item ? item : [], true);
+         break;
+
+   }
+
+   let identificators = JSON.parse(localStorage.getItem("identificators"));
+   if (!identificators) { identificators = []; }
+
+   for (let item of identificators) {
+      if (item.name === "last_hospital_id") { last_hospital_id = item.value; }
+      if (item.name === "last_doctor_id")   { last_doctor_id   = item.value; }
+      if (item.name === "last_patient_id")  { last_patient_id  = item.value; }
+   }
+}
+
+// Завантаження даних з бази даних
+async function load_data_from_data_base() {
+
+   let target = location.pathname.substring(1);
+
+   switch (target) {
+
+      case "hospitals":
+         await server_GET("/get_hospitals").then((res) =>
+            { set_hospitals_list(res); });
+         break;
+
+      case "doctors":
+         await server_GET("/get_doctors").then((res) =>
+            { set_doctors_list(res); });
+         break;
+
+      case "patients":
+         await server_GET("/get_patients").then((res) =>
+            { set_patients_list(res); });
+         await server_GET("/get_cured_patients").then((res) =>
+            { set_patients_list(res, true); });
+         break;
+
+      case "cured_patients":
+         await server_GET("/get_cured_patients").then((res) =>
+            { set_patients_list(res, true); });
+         break;
+
+   }
+
+   await server_GET("/get_last_hospital_id").then((res) =>
+      { if (res.length > 0) { last_hospital_id = res[0].value; }});
+
+   await server_GET("/get_last_doctor_id").then((res) =>
+      { if (res.length > 0) { last_doctor_id = res[0].value; }});
+
+   await server_GET("/get_last_patient_id").then((res) =>
+      { if (res.length > 0) { last_patient_id = res[0].value; }});
 
 }
