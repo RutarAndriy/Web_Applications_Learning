@@ -44,37 +44,72 @@ function find_element() {
 }
 
 // Видалення існуючого елемента
-function delete_element() {
+function delete_element (item) {
+
+   let message;
+   let target = location.pathname.substring(1);
+   let id = parseInt($(item).closest("tr").children().first().text());
+
+   switch (target) {
+
+      case "hospitals":
+         message = "Ви дійсно хочете видалити цю лікарню";
+         break;
+
+      case "doctors":
+         message = "Ви дійсно хочете звільнити цього лікаря";
+         break;
+
+      case "patients":
+         message = "Ви дійсно хочете виписати цього пацієнта";
+         break;
+
+      case "cured_patients":
+         message = "Ви дійсно хочете видалити цього виписаного пацієнта";
+         break;
+
+   }
+   
+   modal_confirm_create("Повідомлення",
+                        `${message}?`,
+                        "Видалити",
+                        "Відміна",
+                        "delete", id);
 
    $(`#modal_confirm`).modal('show');
-
-}
-
-// Обмеження вводу для поля "вік"
-function set_age (element) {
-
-   let value = $(element).val();
-   value = value.substring(0, 3);
-   value = (value > 120) ? 120 : value;
-   $(element).val(value);
 
 }
 
 // Вибрана позитивна відповідь у модальному вікні
 function modal_confirm() {
 
-   console.log("Confirm yes");
+   let page = location.pathname.substring(1);
 
+   let target = $("#modal_confirm").attr("target");
+   let src = $("#modal_confirm").attr("src");
+
+   switch (target) {
+
+      // Видалення даних
+      case "delete": let id = parseInt(src);
+                     page = page.substr(0, page.length - 1);
+                     eval(`remove_${page}(${id})`);
+                     display_data();
+                     save_data();
+                     break;
+
+   }
 }
 
 // Задання елементів модального вікна підтвердження
-function modal_confirm_create (title, message, yes, no, target) {
+function modal_confirm_create (title, message, yes, no, target, src) {
 
    $(`#modal_confirm_title`).text(title);
    $(`#modal_confirm_message`).text(message);
    $(`#modal_confirm_yes`).text(yes);
    $(`#modal_confirm_no`).text(no);
    $("#modal_confirm").attr("target", target);
+   $("#modal_confirm").attr("src", src);
 
 }
 
@@ -163,6 +198,9 @@ function display_data() {
 
    // Очищення таблиць
    clear_table(data.length === 0);
+
+   // Відображення загальної кількості елементів
+   $("#total_count").text(`Загальна кількість: ${data.length}`);
 
    // Для виписаних та невиписаниї пацієнтів таблиці однакові
    if (target === "cured_patients") { target = "patients"; }
@@ -297,6 +335,16 @@ function get_icon_code (only_delete) {
    </span>`;
 
    return icons;
+
+}
+
+// Обмеження вводу для поля "вік"
+function set_age (element) {
+
+   let value = $(element).val();
+   value = value.substring(0, 3);
+   value = (value > 120) ? 120 : value;
+   $(element).val(value);
 
 }
 
