@@ -194,8 +194,6 @@ exp.put(["/set_hospitals",
   let array      = req.body.array;
   let collection = req.body.collection;
 
-  if (array.length === 0) { return res.send(array); }
-
   switch (collection) {
     case 1: collection = req.app.locals.hospitals;      break;
     case 2: collection = req.app.locals.doctors;        break;
@@ -206,8 +204,11 @@ exp.put(["/set_hospitals",
 
   try {
 
+    let result;
     await collection.deleteMany({});
-    let result = await collection.insertMany(array);
+
+    if (array.length === 0) { result = array; }
+    else                    { result = await collection.insertMany(array); }
 
     return res.send(result);
 
