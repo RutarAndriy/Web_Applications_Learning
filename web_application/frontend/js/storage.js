@@ -282,12 +282,12 @@ async function load_data_from_data_base() {
    }
 
    await server_GET("/get_last_hospital_id").then((res) =>
-      { if (res.length > 0) { last_hospital_id = res[0].value; }});
+      { if (res && res.length > 0) { last_hospital_id = res[0].value; }});
 
    await server_GET("/get_last_doctor_id").then((res) =>
-      { if (res.length > 0) { last_doctor_id = res[0].value; }});
+      { if (res && res.length > 0) { last_doctor_id = res[0].value; }});
 
    await server_GET("/get_last_patient_id").then((res) =>
-      { if (res.length > 0) { last_patient_id = res[0].value; }});
+      { if (res && res.length > 0) { last_patient_id = res[0].value; }});
 
 }
