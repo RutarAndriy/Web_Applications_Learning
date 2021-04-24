@@ -57,6 +57,8 @@ function get_hospitals_list()
 // Задаємо список усіх лікарень
 function set_hospitals_list (data) {
 
+    if (!data || data.length < 1) { return; }
+
     for (let element of data) {
         add_hospital(element.name,
                      element.address,

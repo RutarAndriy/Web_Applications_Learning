@@ -60,6 +60,8 @@ function get_doctors_list()
 // Задаємо список усіх лікарів
 function set_doctors_list (data) {
 
+    if (!data || data.length < 1) { return; }
+
     for (let element of data) {
         add_doctor(element.name,
                    element.age,
