@@ -95,6 +95,8 @@ function get_patients_list (cured) {
 // Задаємо список усіх пацієнтів
 function set_patients_list (data, cured) {
 
+    if (!data || data.length < 1) { return; }
+
     for (let element of data) {
 
         if (cured) {
