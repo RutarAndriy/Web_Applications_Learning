@@ -1,3 +1,6 @@
+// Необхідні змінні
+let divider = `<li><hr class="dropdown-divider"></li>`;
+
 // Створення нового елемента
 async function create_element() {
 
@@ -16,11 +19,11 @@ async function create_element() {
                        break;
       case "doctor":   $("#doctor_title").text("Додавання нового лікаря");
                        $("#doctor_yes").text("Додати");
-                       await prepare_data_for_dropdown(target);
+                       prepare_hospitals_for_dropdown(target);
                        break;
       case "patient":  $("#patient_title").text("Додавання нового пацієнта");
                        $("#patient_yes").text("Додати");
-                       await prepare_data_for_dropdown(target);
+                       prepare_hospitals_for_dropdown(target);
                        break;
 
    }
@@ -54,14 +57,14 @@ async function edit_element (element) {
                        $("#doctor_age").val(item.age);
                        $("#doctor_name").val(item.name);
                        $("#doctor_hospital").text(item.hospital);
-                       await prepare_data_for_dropdown(target);
+                       prepare_hospitals_for_dropdown(target);
                        break;
       case "patient":  item = get_patient_by_id(id);
                        $("#patient_age").val(item.age);
                        $("#patient_name").val(item.name);
                        $("#patient_doctor").text(item.doctor);
                        $("#patient_hospital").text(item.hospital);
-                       await prepare_data_for_dropdown(target);
+                       prepare_hospitals_for_dropdown(target);
                        break;
 
    }
@@ -335,7 +338,8 @@ function set_hospital (element) {
    hospital = hospital === ". . ." ? "Виберіть лікарню" : hospital;
 
    if (target === "doctors") { $("#doctor_hospital").text(hospital);  }
-   else                      { $("#patient_hospital").text(hospital); }
+   else                      { $("#patient_hospital").text(hospital);
+                               prepare_doctors_for_dropdown();        }
 
 }
 
@@ -352,70 +356,58 @@ function set_doctor (element) {
 
 // ...............................................................................................
 
-// Підготовуємо пункти випадаючого меню для модальних вікон
-async function prepare_data_for_dropdown (target) {
+// Підготовуємо список доступних лікарень у випадаючому меню
+function prepare_hospitals_for_dropdown (target) {
 
-   let divider = `<li><hr class="dropdown-divider"></li>`;
+   let list = $(`#${target}_hospitals_list`);
 
-   // Модальне вікно додавання нового лікаря
-   if (target === "doctor") {
+   // Отримуємо інформацію про усі лікарні
+   get_data("hospitals").then((result) => {
 
-      let ul = $("#doctor_hospitals_list");
+      if (result.length != 0) {
+         
+         list.find("li:not(:first)").remove();
+         list.append(divider);
 
-      get_data("hospitals").then((result) => {
-
-         if (result.length != 0) {
-            
-            $(ul).find("li:not(:first)").remove();
-
-            ul.append(divider);
-
-            for (let item of result) {
-               ul.append(`<li><span class="dropdown-item" ` +
+         for (let item of result) {
+            list.append(`<li><span class="dropdown-item" ` +
                         `onclick="set_hospital(this)">${item.name}</span></li>`);
-            }
          }
-      });
-   }
+      }
 
-   // Модальне вікно додавання нового пацієнта
-   else if (target === "patient") {
+   });
+}
 
-      let ul_1 = $("#patient_doctors_list");
+// Підготовуємо список доступних лікарів у випадаючому меню
+function prepare_doctors_for_dropdown() {
 
-      get_data("doctors").then((result) => {
+   $("#patient_doctor").text("Виберіть лікаря");
 
-         if (result.length != 0) {
-            
-            $(ul_1).find("li:not(:first)").remove();
+   let list = $(`#patient_doctors_list`);
+   let hospital = $("#patient_hospital").text();
+   let divider_is_added = false;
 
-            ul_1.append(divider);
+   // Отримуємо інформацію про усіх лікарів
+   get_data("doctors").then((result) => {
 
-            for (let item of result) {
-               ul_1.append(`<li><span class="dropdown-item" ` +
+      if (result.length != 0) {
+         
+         list.find("li:not(:first)").remove();
+
+         for (let item of result) {
+
+            if (item.hospital === hospital) {
+
+               if (!divider_is_added) { list.append(divider);
+                                        divider_is_added = true; }
+
+               list.append(`<li><span class="dropdown-item" ` +
                            `onclick="set_doctor(this)">${item.name}</span></li>`);
             }
          }
-      });
+      }
 
-      let ul_2 = $("#patient_hospitals_list");
-
-      get_data("hospitals").then((result) => {
-
-         if (result.length != 0) {
-            
-            $(ul_2).find("li:not(:first)").remove();
-
-            ul_2.append(divider);
-
-            for (let item of result) {
-               ul_2.append(`<li><span class="dropdown-item" ` +
-                           `onclick="set_hospital(this)">${item.name}</span></li>`);
-            }
-         }
-      });
-
-   }
+   });
 }
 
 // ...............................................................................................
