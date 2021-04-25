@@ -1,5 +1,5 @@
 // Створення нового елемента
-function create_element() {
+async function create_element() {
 
    let target = location.pathname.substring(1);
 
@@ -14,9 +14,11 @@ function create_element() {
                         break;
       case "doctors":   $("#doctor_title").text("Додавання нового лікаря");
                         $("#doctor_yes").text("Додати");
+                        await prepare_data_for_dropdown(target);
                         break;
       case "patients":  $("#patient_title").text("Додавання нового пацієнта");
                         $("#patient_yes").text("Додати");
+                        await prepare_data_for_dropdown(target);
                         break;
    }
 
@@ -168,14 +170,14 @@ function modal_delete_cured_patients() {
 }
 
 // Вибір лікарні у випадаючому списку
-function set_hospital() {
+function set_hospital (element) {
 
    console.log("set_hospital");
 
 }
 
 // Вибір лікаря у випадаючому списку
-function set_doctor() {
+function set_doctor (element) {
 
    console.log("set_doctor");
 
@@ -231,8 +233,6 @@ function display_hospitals_data (data) {
 // Відобразити дані про усіх лікарів
 function display_doctors_data (data) {
 
-// <li><hr class="dropdown-divider"></li>
-
    for (let element of data) {
       
       let block =
@@ -265,6 +265,57 @@ function display_patients_data (data) {
       </tr>`;
 
       $("#table").append(block);
+
+   }
+}
+
+// Підготовуємо пункти випадаючого меню для модальних вікон
+async function prepare_data_for_dropdown (target) {
+
+   let divider = `<li><hr class="dropdown-divider"></li>`;
+
+   // Модальне вікно додавання нового лікаря
+   if (target === "doctors") {
+
+      let ul = $("#doctor_hospitals_list");
+
+      get_data("hospitals").then((result) => {
+
+         if (result.length != 0) { ul.append(divider); }
+
+         for (let item of result) {
+            ul.append(`<li><span class="dropdown-item" ` +
+                      `onclick="set_hospital(this)">${item.name}</span></li>`);
+         }
+      });
+   }
+
+   // Модальне вікно додавання нового пацієнта
+   else if (target === "patients") {
+
+      let ul_1 = $("#patient_doctors_list");
+
+      get_data("doctors").then((result) => {
+
+         if (result.length != 0) { ul_1.append(divider); }
+
+         for (let item of result) {
+            ul_1.append(`<li><span class="dropdown-item" ` +
+                        `onclick="set_doctor(this)">${item.name}</span></li>`);
+         }
+      });
+
+      let ul_2 = $("#patient_hospitals_list");
+
+      get_data("hospitals").then((result) => {
+
+         if (result.length != 0) { ul_2.append(divider); }
+
+         for (let item of result) {
+            ul_2.append(`<li><span class="dropdown-item" ` +
+                        `onclick="set_hospital(this)">${item.name}</span></li>`);
+         }
+      });
 
    }
 }
@@ -346,6 +397,15 @@ function set_age (element) {
    value = (value > 120) ? 120 : value;
    $(element).val(value);
 
+}
+
+// Метод дозволяє реалізувати затримку
+function delay (time) {
+   return new Promise((resolve, reject) => {
+      setTimeout(() => {
+         resolve();
+      }, time);
+   });
 }
 
 // Очищення даних після закриття модальних вікон
