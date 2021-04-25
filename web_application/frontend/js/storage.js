@@ -291,3 +291,28 @@ async function load_data_from_data_base() {
       { if (res && res.length > 0) { last_patient_id = res[0].value; }});
 
 }
+
+// Отримання даних
+async function get_data (data) {
+
+   if (use_db === "true") { return await get_data_from_data_base(data);     }
+   else                   { return await get_data_from_local_storage(data); }
+
+}
+
+// Отримання даних з localStorage
+async function get_data_from_local_storage (data) {
+   
+   try           { return JSON.parse(localStorage.getItem(data)); }
+   catch (error) { return [];                                     }
+
+}
+
+
+// Отримання даних з бази даних
+async function get_data_from_data_base (data) {
+
+   try           { return await server_GET(`/get_${data}`); }
+   catch (error) { return [];                               }
+
+}
