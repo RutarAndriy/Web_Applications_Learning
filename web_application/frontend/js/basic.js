@@ -1,4 +1,5 @@
 // Необхідні змінні
+let search = "";
 let divider = `<li><hr class="dropdown-divider"></li>`;
 
 // Створення нового елемента
@@ -77,9 +78,22 @@ async function edit_element (element) {
 // ...............................................................................................
 
 // Пошук існуючого елемента
-function find_element() {
+function find_element (element) {
 
-   console.log(`Find: ${location.pathname}`);
+   let search = $(element).val();
+   let target = location.pathname.substring(1);
+   let search_list = [];
+
+   switch (target) {
+
+      case "hospitals":      search_list = find_hospitals(search);      break;
+      case "doctors":        search_list = find_doctors(search);        break;
+      case "patients":       search_list = find_patients(search);       break;
+      case "cured_patients": search_list = find_patients(search, true); break;
+
+   }
+
+   display_data(search_list);
 
 }
 
@@ -125,7 +139,7 @@ function delete_element (item) {
 // ...............................................................................................
 
 // Відобразити дані у таблиці
-function display_data() {
+function display_data (search_list) {
 
    let data;
    let additional_attr = "";
@@ -144,6 +158,9 @@ function display_data() {
                              additional_attr = "true, ";
                              break;
    }
+
+   // Якщо поле пошуку не порожнє - відображаємо результат
+   if (search_list) { data = search_list; }
 
    // Очищення таблиць
    clear_table(data.length === 0);
@@ -286,6 +303,8 @@ function modal_update_doctors (added_new, id) {
    let age      = $("#doctor_age").val();
    let hospital = $("#doctor_hospital").text();
 
+   hospital = hospital === "Виберіть лікарню" ? "Не встановлено" : hospital;
+
    if (added_new) { add_doctor(name, age, hospital);      }
    else           { edit_doctor(id, name, age, hospital); }
 
@@ -302,6 +321,9 @@ function modal_update_patients (added_new, id) {
    let age      = $("#patient_age").val();
    let doctor   = $("#patient_doctor").text();
    let hospital = $("#patient_hospital").text();
+
+   doctor   = doctor   === "Виберіть лікаря"  ? "Не призначено"  : doctor;
+   hospital = hospital === "Виберіть лікарню" ? "Не встановлено" : hospital;
 
    if (added_new) { add_patient(name, age, doctor, hospital);      }
    else           { edit_patient(id, name, age, doctor, hospital); }
