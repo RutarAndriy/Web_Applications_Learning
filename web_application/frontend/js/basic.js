@@ -405,7 +405,7 @@ function prepare_doctors_for_dropdown() {
 
    $("#patient_doctor").text("Виберіть лікаря");
 
-   let list = $(`#patient_doctors_list`);
+   let list = $("#patient_doctors_list");
    let hospital = $("#patient_hospital").text();
    let divider_is_added = false;
 
@@ -467,11 +467,14 @@ function clear_input() {
       case "doctors":   $("#doctor_name").val("");
                         $("#doctor_age").val("");
                         $("#doctor_hospital").text("Виберіть лікарню");
+                        $("#doctor_hospitals_list").find("li:not(:first)").remove();
                         break;
       case "patients":  $("#patient_name").val("");
                         $("#patient_age").val("");
                         $("#patient_doctor").text("Виберіть лікаря");
                         $("#patient_hospital").text("Виберіть лікарню");
+                        $(`#patient_doctors_list`).find("li:not(:first)").remove();
+                        $(`#patient_hospitals_list`).find("li:not(:first)").remove();
                         break;
    }
 }
