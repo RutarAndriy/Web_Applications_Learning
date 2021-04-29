@@ -102,6 +102,7 @@ function find_element (element) {
 // Видалення існуючого елемента
 function delete_element (item) {
 
+   let button;
    let message;
    let target = location.pathname.substring(1);
    let id = parseInt($(item).closest("tr").children().first().text());
@@ -109,26 +110,30 @@ function delete_element (item) {
    switch (target) {
 
       case "hospitals":
-         message = "Ви дійсно хочете видалити цю лікарню";
+         message = "Ви дійсно хочете видалити інформацію про цю лікарню";
+         button = "Видалити";
          break;
 
       case "doctors":
          message = "Ви дійсно хочете звільнити цього лікаря";
+         button = "Звільнити";
          break;
 
       case "patients":
          message = "Ви дійсно хочете виписати цього пацієнта";
+         button = "Виписати";
          break;
 
       case "cured_patients":
-         message = "Ви дійсно хочете видалити цього виписаного пацієнта";
+         message = "Ви дійсно хочете видалити інформацію про цього виписаного пацієнта";
+         button = "Видалити";
          break;
 
    }
    
    modal_confirm_create("Повідомлення",
                         `${message}?`,
-                        "Видалити",
+                        `${button}`,
                         "Відміна",
                         "delete", id);
 
